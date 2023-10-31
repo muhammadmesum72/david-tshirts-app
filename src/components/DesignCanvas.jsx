@@ -12,6 +12,12 @@ const DesignCanvas = () => {
       height: 500,
     });
     setCanvas(newCanvas);
+    fabric.Image.fromURL('../assets/tshirt-mockup.jpg', (img) => {
+        newCanvas.setBackgroundImage(img, newCanvas.renderAll.bind(newCanvas), {
+          scaleX: newCanvas.width / img.width,
+          scaleY: newCanvas.height / img.height,
+        });
+      });
 
     newCanvas.on("object:selected", (e) => {
       const selectedObject = e.target;
