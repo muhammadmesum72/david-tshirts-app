@@ -3,6 +3,7 @@ import FileUpload from "./FileUpload";
 import TShirtMockup from "./Tshirt-Mockup";
 import DownloadButton from "./DownloadBtn";
 import html2canvas from "html2canvas";
+import DesignCanvas from "./DesignCanvas";
 
 const AddingDesign = ({handleNext, handleBack}) => {
   const [design, setDesign] = useState(null);
@@ -43,16 +44,17 @@ const AddingDesign = ({handleNext, handleBack}) => {
     };
   };
   return (
-    <div className="py-12">
-      <div id="tshirt-container">
+    <div className="py-6">
+      {/* <div id="tshirt-container">
         <TShirtMockup design={design} />
         <FileUpload onFileUpload={handleFileUpload} />
-      </div>
-      <div className="mt-8 flex gap-12">
+      </div> */}
+      <DesignCanvas />
+      <div className=" w-1/2 mx-auto">
         <button onClick={handleBack} className="w-full rounded-md text-teal-500 hover:text-black transition-all ease-in-out py-3 font-semibold uppercase bg-white">Back</button>
-        <button onClick={handleNext} className="w-full rounded-md bg-teal-500 hover:text-black transition-all ease-in-out py-3 font-semibold uppercase text-white">
+        {/* <button onClick={handleNext} className="w-full rounded-md bg-teal-500 hover:text-black transition-all ease-in-out py-3 font-semibold uppercase text-white">
           Preview and Download
-        </button>
+        </button> */}
 
       </div>
       <canvas ref={canvasRef} className="hidden" width="500" height="500" />

@@ -23,10 +23,10 @@ const PickColor = ({ handleNext }) => {
     setSizeSelected(size);
   };
   return (
-    <div className="pt-9">
+    <div className="pb-6 w-fit mx-auto">
       <div>
         <h1 className="font-semibold mb-3">Select Colors</h1>
-        <div className="grid grid-cols-3 gap-3 w-fit">
+        <div className="grid grid-cols-3 gap-9 w-fit">
           {colors.map((color) => (
             <div
               onClick={() => colorSelected(color.id)}
@@ -38,15 +38,9 @@ const PickColor = ({ handleNext }) => {
               } `}
             ></div>
           ))}
-          {/* <div className="w-24 h-24 bg-orange-200 cursor-pointer  rounded-md"></div>
-          <div className="w-24 h-24 bg-white cursor-pointer rounded-md"></div>
-          <div className="w-24 h-24 bg-green-300 cursor-pointer rounded-md"></div>
-          <div className="w-24 h-24 bg-blue-500 cursor-pointer rounded-md"></div>
-          <div className="w-24 h-24 bg-pink-400 cursor-pointer rounded-md"></div>
-          <div className="w-24 h-24 bg-orange-700 cursor-pointer rounded-md"></div> */}
         </div>
         <h1 className="font-semibold mb-3 mt-6">Select Size</h1>
-        <div className="flex gap-3">
+        <div className="flex gap-9">
           {sizes.map((size) => (
             <div
               onClick={() => selectSize(size)}
@@ -60,7 +54,7 @@ const PickColor = ({ handleNext }) => {
         </div>
       </div>
 
-      <div className="mt-9">
+      <div className="mt-9 mx-auto">
         <button
           onClick={handleNext}
           disabled={sizeSelected == null || (colorSelected == null && true)}
