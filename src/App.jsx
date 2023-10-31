@@ -5,6 +5,7 @@ import StepProgressBar from "./components/StepProgressBar";
 import AddingDesign from "./components/AddingDesign";
 import FinalPreview from "./components/FinalPreview";
 import DesignCanvas from "./components/DesignCanvas";
+import KonvaCanvas from "./components/KonvaCanvas";
 
 const App = () => {
   const [isScreenPickColor, setScreenPickColor] = useState(true);
@@ -32,23 +33,41 @@ const App = () => {
   const handleDownload = () => {
     alert("Image Downloaded");
   };
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const colorSelected = (name) => {
+    setSelectedColor(name);
+  };
 
   return (
     <>
       <Header />
       <div className="container mx-auto">
+        {/* <KonvaCanvas /> */}
         {/* <DesignCanvas /> */}
         <StepProgressBar
           isScreenPickColor={isScreenPickColor}
           isScreenAddDesign={isScreenAddDesign}
           isScreenPreview={isScreenPreview}
         />
-        {isScreenPickColor && <PickColor handleNext={showScreenAddDesign} />}
-        {isScreenAddDesign && (
-          <AddingDesign
-            handleBack={showScreenPickColor}
-            handleNext={showScreenPreview}
+        {isScreenPickColor && (
+          <PickColor
+            colorSelected={colorSelected}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+            handleNext={showScreenAddDesign}
           />
+        )}
+        {isScreenAddDesign && (
+          <DesignCanvas
+            selectedColor={selectedColor}
+            handleBack={showScreenPickColor}
+          />
+          // <AddingDesign
+          // selectedColor={selectedColor}
+          //   handleBack={showScreenPickColor}
+          //   handleNext={showScreenPreview}
+          // />
         )}
         {/* {isScreenPreview && (
         <FinalPreview
