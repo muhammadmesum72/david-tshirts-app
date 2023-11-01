@@ -10,27 +10,17 @@ import greenShirt from "../assets/tshirts/green.jpg";
 const DesignCanvas = ({ handleBack, selectedColor }) => {
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
-  const [selectedObject, setSelectedObject] = useState(null);
 
   const handleShirtColor = () => {
-    if (selectedColor === "white") {
-      return whiteShirt;
-    }
-    if (selectedColor === "black") {
-      return blackShirt;
-    }
-    if (selectedColor === "blue") {
-      return blueShirt;
-    }
-    if (selectedColor === "pink") {
-      return pinkShirt;
-    }
-    if (selectedColor === "orange") {
-      return orangeShirt;
-    }
-    if (selectedColor === "green") {
-      return greenShirt;
-    }
+    const colorMap = {
+      white: whiteShirt,
+      black: blackShirt,
+      blue: blueShirt,
+      pink: pinkShirt,
+      orange: orangeShirt,
+      green: greenShirt,
+    };
+    return colorMap[selectedColor] || whiteShirt;
   };
 
   const [canvasWidth, setCanvasWidth] = useState(400);
@@ -53,16 +43,24 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       height: canvasHeight,
     });
 
-    fabric.Image.fromURL(handleShirtColor(), (backgroundImg) => {
-      newCanvas.setBackgroundImage(
-        backgroundImg,
-        newCanvas.renderAll.bind(newCanvas),
-        {
-          scaleX: newCanvas.width / backgroundImg.width,
-          scaleY: newCanvas.height / backgroundImg.height,
-        }
-      );
-    });
+    fabric.Image.fromURL(
+      handleShirtColor(),
+      (backgroundImg) => {
+        newCanvas.setBackgroundImage(
+          backgroundImg,
+          newCanvas.renderAll.bind(newCanvas),
+          {
+            scaleX: newCanvas.width / backgroundImg.width,
+            scaleY: newCanvas.height / backgroundImg.height,
+          }
+        );
+      },
+      null,
+      { crossOrigin: "Anonymous" }, // Add cross-origin option to handle CORS issues
+      (err, img) => {
+        console.error("Error loading image:", err);
+      }
+    );
 
     setCanvas(newCanvas);
 
@@ -89,21 +87,21 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
         fabric.Image.fromURL(e.target.result, (img) => {
           const canvasAspectRatio = canvas.width / canvas.height;
           const imageAspectRatio = img.width / img.height;
-  
+
           let newWidth, newHeight;
           if (canvasAspectRatio > imageAspectRatio) {
             newWidth = canvas.width * 0.5;
             newHeight = (canvas.width * 0.5) / imageAspectRatio;
           } else {
             newHeight = canvas.height * 0.5;
-            newWidth = (canvas.height * 0.5) * imageAspectRatio;
+            newWidth = canvas.height * 0.5 * imageAspectRatio;
           }
-  
+
           img.set({
             scaleX: newWidth / img.width,
             scaleY: newHeight / img.height,
           });
-  
+
           img.setControlsVisibility({
             mt: true,
             mb: true,
@@ -115,7 +113,7 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
             tr: true,
             mtr: true,
           });
-  
+
           canvas.add(img);
           canvas.renderAll();
         });
@@ -123,7 +121,6 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       reader.readAsDataURL(file);
     }
   };
-  
 
   const handleDownload = () => {
     const dataURL = canvas.toDataURL({
