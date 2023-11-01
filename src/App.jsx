@@ -33,11 +33,11 @@ const App = () => {
       name: "orange",
       hexCode: "FFAE00",
     },
-    { id: 2, name: "white", hexCode: "FFFFFF" },
-    { id: 3, name: "green", hexCode: "BEFF74" },
-    { id: 4, name: "blue", hexCode: "00D1FF" },
-    { id: 5, name: "pink", hexCode: "FF74DB" },
-    { id: 6, name: "black", hexCode: "000000" },
+    { id: 2, name: "white", hexCode: "#FFFFFF" },
+    { id: 3, name: "green", hexCode: "#BEFF74" },
+    { id: 4, name: "blue", hexCode: "#00D1FF" },
+    { id: 5, name: "pink", hexCode: "#FF74DB" },
+    { id: 6, name: "black", hexCode: "#000000" },
   ];  
 
   return (

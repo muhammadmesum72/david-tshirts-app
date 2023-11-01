@@ -6,13 +6,60 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
       <div>
         <h1 className="font-semibold mb-3">Select Colors</h1>
         <div className="grid grid-cols-3 gap-9 w-fit">
-          {colors.map((color) => (
+          <div
+            onClick={() => {
+              colorSelected("orange");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#FFAE00] cursor-pointer rounded-md ${
+              "orange" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          <div
+            onClick={() => {
+              colorSelected("white");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[white] cursor-pointer rounded-md ${
+              "white" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          <div
+            onClick={() => {
+              colorSelected("green");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#BEFF74] cursor-pointer rounded-md ${
+              "green" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          <div
+            onClick={() => {
+              colorSelected("blue");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#00D1FF] cursor-pointer rounded-md ${
+              "blue" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          <div
+            onClick={() => {
+              colorSelected("pink");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#FF74DB] cursor-pointer rounded-md ${
+              "pink" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          <div
+            onClick={() => {
+              colorSelected("black");
+            }}
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[black] cursor-pointer rounded-md ${
+              "black" === selectedColor && "border-2 border-black shadow-lg"
+            } `}
+          ></div>
+          {/* {colors.map((color) => (
             <div
               key={color.id}
               onClick={() => {
                 colorSelected(color.name);
               }}
-              id={color.id}
               className={`w-16 h-16 md:w-24 md:h-24 bg-[#${
                 color.hexCode
               }] cursor-pointer rounded-md ${
@@ -20,7 +67,7 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
                 "border-2 border-black shadow-lg"
               } `}
             ></div>
-          ))}
+          ))} */}
         </div>
       </div>
 
