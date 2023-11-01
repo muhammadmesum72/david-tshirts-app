@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Header from "./components/Header";
 import PickColor from "./components/PickColor";
 import StepProgressBar from "./components/StepProgressBar";
-import AddingDesign from "./components/AddingDesign";
-import FinalPreview from "./components/FinalPreview";
 import DesignCanvas from "./components/DesignCanvas";
-import KonvaCanvas from "./components/KonvaCanvas";
 
 const App = () => {
   const [isScreenPickColor, setScreenPickColor] = useState(true);
@@ -24,20 +21,24 @@ const App = () => {
     setScreenPreview(false);
   };
 
-  const showScreenPreview = () => {
-    setScreenPreview(true);
-    setScreenAddDesign(false);
-    setScreenPickColor(false);
-  };
-
-  const handleDownload = () => {
-    alert("Image Downloaded");
-  };
   const [selectedColor, setSelectedColor] = useState(null);
 
   const colorSelected = (name) => {
     setSelectedColor(name);
   };
+
+  const colors = [
+    { id: 6, name: "black", hexCode: "#000000" },
+    {
+      id: 1,
+      name: "orange",
+      hexCode: "#FFAE00",
+    },
+    { id: 2, name: "white", hexCode: "#FFFFFF" },
+    { id: 3, name: "green", hexCode: "#BEFF74" },
+    { id: 4, name: "blue", hexCode: "#00D1FF" },
+    { id: 5, name: "pink", hexCode: "#FF74DB" },
+  ];
 
   return (
     <>
@@ -54,8 +55,8 @@ const App = () => {
           <PickColor
             colorSelected={colorSelected}
             selectedColor={selectedColor}
-            setSelectedColor={setSelectedColor}
             handleNext={showScreenAddDesign}
+            colors={colors}
           />
         )}
         {isScreenAddDesign && (

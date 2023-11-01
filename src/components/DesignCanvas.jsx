@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import { fabric } from "fabric";
-import ShirtBg from "../assets/tshirt-mockup.jpg";
 import blackShirt from "../assets/tshirts/black.jpg";
 import whiteShirt from "../assets/tshirts/white.jpg";
 import blueShirt from "../assets/tshirts/blue.jpg";
@@ -12,34 +11,46 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
   const [selectedObject, setSelectedObject] = useState(null);
-  const [shirtColorSelected, setShirtColorSelected] = useState(null);
 
   const handleShirtColor = () => {
-    if(selectedColor === "white"){
-      return whiteShirt
+    if (selectedColor === "white") {
+      return whiteShirt;
     }
-    if(selectedColor === "black"){
-      return blackShirt
+    if (selectedColor === "black") {
+      return blackShirt;
     }
-    if(selectedColor === "blue"){
-      return blueShirt
+    if (selectedColor === "blue") {
+      return blueShirt;
     }
-    if(selectedColor === "pink"){
-      return pinkShirt
+    if (selectedColor === "pink") {
+      return pinkShirt;
     }
-    if(selectedColor === "orange"){
-      return orangeShirt
+    if (selectedColor === "orange") {
+      return orangeShirt;
     }
-    if(selectedColor === "green"){
-      return greenShirt
+    if (selectedColor === "green") {
+      return greenShirt;
     }
-  }
+  };
 
+  const [canvasWidth, setCanvasWidth] = useState(400);
+  const [canvasHeight, setCanvasHeight] = useState(400);
+
+  const handleResize = () => {
+    const newCanvasWidth = window.innerWidth < 786 ? 200 : 400;
+    const newCanvasHeight = window.innerWidth < 786 ? 200 : 400;
+    setCanvasWidth(newCanvasWidth);
+    setCanvasHeight(newCanvasHeight);
+    if (canvas) {
+      canvas.setDimensions({ width: newCanvasWidth, height: newCanvasHeight });
+      canvas.renderAll();
+    }
+  };
 
   useEffect(() => {
     const newCanvas = new fabric.Canvas(canvasRef.current, {
-      width: 400,
-      height: 400,
+      width: canvasWidth,
+      height: canvasHeight,
     });
 
     fabric.Image.fromURL(handleShirtColor(), (backgroundImg) => {
@@ -59,7 +70,16 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       const selectedObject = e.target;
       setSelectedObject(selectedObject);
     });
-  }, []);
+
+    // Set initial canvas dimensions and add resize event listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [canvasWidth, canvasHeight]);
 
   const handleAddImage = (event) => {
     const file = event.target.files[0];
@@ -109,8 +129,8 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       <div className="mb-6 w-fit bg-white mx-auto">
         <canvas ref={canvasRef} className="" />
       </div>
-      <div className="mx-auto w-1/2 py-6 space-y-3 ">
-        <div className="border-dashed border-2 p-8 text-center">
+      <div className="mx-auto w-full px-6 md:w-1/2 py-6 space-y-3 ">
+        <div className="border-dashed border-2 p-8 text-center text-sm md:text-auto">
           <input
             type="file"
             onChange={handleAddImage}
