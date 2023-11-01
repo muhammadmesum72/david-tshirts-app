@@ -87,10 +87,23 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       const reader = new FileReader();
       reader.onload = function (e) {
         fabric.Image.fromURL(e.target.result, (img) => {
+          const canvasAspectRatio = canvas.width / canvas.height;
+          const imageAspectRatio = img.width / img.height;
+  
+          let newWidth, newHeight;
+          if (canvasAspectRatio > imageAspectRatio) {
+            newWidth = canvas.width * 0.5;
+            newHeight = (canvas.width * 0.5) / imageAspectRatio;
+          } else {
+            newHeight = canvas.height * 0.5;
+            newWidth = (canvas.height * 0.5) * imageAspectRatio;
+          }
+  
           img.set({
-            scaleX: 0.3,
-            scaleY: 0.3,
+            scaleX: newWidth / img.width,
+            scaleY: newHeight / img.height,
           });
+  
           img.setControlsVisibility({
             mt: true,
             mb: true,
@@ -102,7 +115,7 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
             tr: true,
             mtr: true,
           });
-
+  
           canvas.add(img);
           canvas.renderAll();
         });
@@ -110,6 +123,7 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       reader.readAsDataURL(file);
     }
   };
+  
 
   const handleDownload = () => {
     const dataURL = canvas.toDataURL({
