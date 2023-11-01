@@ -37,8 +37,8 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
   const [canvasHeight, setCanvasHeight] = useState(400);
 
   const handleResize = () => {
-    const newCanvasWidth = window.innerWidth < 786 ? 200 : 400;
-    const newCanvasHeight = window.innerWidth < 786 ? 200 : 400;
+    const newCanvasWidth = window.innerWidth < 786 ? 300 : 400;
+    const newCanvasHeight = window.innerWidth < 786 ? 300 : 400;
     setCanvasWidth(newCanvasWidth);
     setCanvasHeight(newCanvasHeight);
     if (canvas) {
