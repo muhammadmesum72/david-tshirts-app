@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
 const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
- 
-
-  const selectColor = (colorName) => {
-    colorSelected(colorName);
-  };
-
   return (
     <div className="pb-6 mt-6 w-fit mx-auto">
       <div>
@@ -16,10 +10,12 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
             <div
               key={color.id}
               onClick={() => {
-                selectColor(color.name);
+                colorSelected(color.name);
               }}
               id={color.id}
-              className={`w-16 h-16 md:w-24 md:h-24 bg-[${color.hexCode}] cursor-pointer rounded-md ${
+              className={`w-16 h-16 md:w-24 md:h-24 bg-[#${
+                color.hexCode
+              }] cursor-pointer rounded-md ${
                 color.name === selectedColor &&
                 "border-2 border-black shadow-lg"
               } `}
