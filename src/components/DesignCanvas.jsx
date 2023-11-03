@@ -24,8 +24,8 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
     return colorMap[selectedColor] || whiteShirt;
   };
 
-  const [canvasWidth, setCanvasWidth] = useState(400);
-  const [canvasHeight, setCanvasHeight] = useState(400);
+  const [canvasWidth, setCanvasWidth] = useState(300);
+  const [canvasHeight, setCanvasHeight] = useState(300);
 
   const handleResize = () => {
     const newCanvasWidth = window.innerWidth < 786 ? 300 : 400;
