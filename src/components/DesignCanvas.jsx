@@ -86,10 +86,25 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       const reader = new FileReader();
       reader.onload = function (e) {
         fabric.Image.fromURL(e.target.result, (img) => {
+          const canvasAspectRatio = canvas.width / canvas.height;
+          const imageAspectRatio = img.width / img.height;
+
+          let newWidth, newHeight;
+          if (canvasAspectRatio > imageAspectRatio) {
+            newWidth = canvas.width * 0.5;
+            newHeight = (canvas.width * 0.5) / imageAspectRatio;
+          } else {
+            newHeight = canvas.height * 0.5;
+            newWidth = canvas.height * 0.5 * imageAspectRatio;
+          }
           img.set({
-            scaleX: canvas.width * 0.2 / img.width,
-            scaleY: canvas.height * 0.2 / img.height,
+            scaleX: newWidth / img.width,
+            scaleY: newHeight / img.height,
           });
+          // img.set({
+          //   scaleX: canvas.width * 0.2 / img.width,
+          //   scaleY: canvas.height * 0.2 / img.height,
+          // });
 
           img.setControlsVisibility({
             mt: true,
