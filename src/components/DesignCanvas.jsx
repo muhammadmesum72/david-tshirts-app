@@ -101,10 +101,6 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
             scaleX: newWidth / img.width,
             scaleY: newHeight / img.height,
           });
-          // img.set({
-          //   scaleX: canvas.width * 0.2 / img.width,
-          //   scaleY: canvas.height * 0.2 / img.height,
-          // });
 
           img.setControlsVisibility({
             mt: true,
@@ -118,7 +114,11 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
             mtr: true,
           });
 
+          
+
           canvas.add(img);
+
+          
         });
       };
       reader.readAsDataURL(file);
@@ -140,7 +140,7 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
 
   return (
     <div className="w-full mt-6">
-      <div className="mb-6 w-fit bg-white mx-auto">
+      <div className="w-fit bg-white mx-auto">
         <canvas ref={canvasRef} className="" />
       </div>
       <div className="mx-auto w-full px-6 md:w-1/2 py-6 space-y-3 ">
