@@ -10,6 +10,7 @@ import greenShirt from "../assets/tshirts/green.jpg";
 const DesignCanvas = ({ handleBack, selectedColor }) => {
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
+  const [selectedObject, setSelectedObject] = useState(null);
 
   const handleShirtColor = () => {
     const colorMap = {
@@ -55,29 +56,29 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
           }
         );
       },
-      null,
-      { crossOrigin: "Anonymous" }, // Add cross-origin option to handle CORS issues
+      { crossOrigin: "Anonymous" },
       (err, img) => {
-        console.error("Error loading image:", err);
+        if (err) {
+          console.error("Error loading image:", err);
+        } else {
+          canvas.add(img);
+        }
       }
     );
 
     setCanvas(newCanvas);
 
     newCanvas.on("object:selected", (e) => {
-      const selectedObject = e.target;
-      setSelectedObject(selectedObject);
+      setSelectedObject(e.target);
     });
 
-    // Set initial canvas dimensions and add resize event listener
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [canvasWidth, canvasHeight]);
+  }, []);
 
   const handleAddImage = (event) => {
     const file = event.target.files[0];
@@ -85,21 +86,9 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
       const reader = new FileReader();
       reader.onload = function (e) {
         fabric.Image.fromURL(e.target.result, (img) => {
-          const canvasAspectRatio = canvas.width / canvas.height;
-          const imageAspectRatio = img.width / img.height;
-
-          let newWidth, newHeight;
-          if (canvasAspectRatio > imageAspectRatio) {
-            newWidth = canvas.width * 0.5;
-            newHeight = (canvas.width * 0.5) / imageAspectRatio;
-          } else {
-            newHeight = canvas.height * 0.5;
-            newWidth = canvas.height * 0.5 * imageAspectRatio;
-          }
-
           img.set({
-            scaleX: newWidth / img.width,
-            scaleY: newHeight / img.height,
+            scaleX: canvas.width * 0.2 / img.width,
+            scaleY: canvas.height * 0.2 / img.height,
           });
 
           img.setControlsVisibility({
@@ -115,7 +104,6 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
           });
 
           canvas.add(img);
-          canvas.renderAll();
         });
       };
       reader.readAsDataURL(file);
@@ -151,7 +139,7 @@ const DesignCanvas = ({ handleBack, selectedColor }) => {
           <p>Drag & drop your design here, or click to select a file</p>
         </div>
         <button
-          className="w-full bg-teal-500 rounded-md  hover:text-black transition-all ease-in-out py-3 font-semibold uppercase text-white"
+          className="w-full bg-teal-500 rounded-md hover:text-black transition-all ease-in-out py-3 font-semibold uppercase text-white"
           onClick={handleDownload}
         >
           Download Design

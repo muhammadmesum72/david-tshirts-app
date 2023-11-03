@@ -10,7 +10,7 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
             onClick={() => {
               colorSelected("orange");
             }}
-            className={`w-16 h-16 md:w-24 md:h-24 bg-[#FFAE00] cursor-pointer rounded-md ${
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#e79469] cursor-pointer rounded-md ${
               "orange" === selectedColor && "border-2 border-black shadow-lg"
             } `}
           ></div>
@@ -26,7 +26,7 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
             onClick={() => {
               colorSelected("green");
             }}
-            className={`w-16 h-16 md:w-24 md:h-24 bg-[#BEFF74] cursor-pointer rounded-md ${
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#cbd5bf] cursor-pointer rounded-md ${
               "green" === selectedColor && "border-2 border-black shadow-lg"
             } `}
           ></div>
@@ -34,7 +34,7 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
             onClick={() => {
               colorSelected("blue");
             }}
-            className={`w-16 h-16 md:w-24 md:h-24 bg-[#00D1FF] cursor-pointer rounded-md ${
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#1261c4] cursor-pointer rounded-md ${
               "blue" === selectedColor && "border-2 border-black shadow-lg"
             } `}
           ></div>
@@ -42,7 +42,7 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
             onClick={() => {
               colorSelected("pink");
             }}
-            className={`w-16 h-16 md:w-24 md:h-24 bg-[#FF74DB] cursor-pointer rounded-md ${
+            className={`w-16 h-16 md:w-24 md:h-24 bg-[#fec9dd] cursor-pointer rounded-md ${
               "pink" === selectedColor && "border-2 border-black shadow-lg"
             } `}
           ></div>
@@ -54,20 +54,6 @@ const PickColor = ({ handleNext, colorSelected, selectedColor, colors }) => {
               "black" === selectedColor && "border-2 border-black shadow-lg"
             } `}
           ></div>
-          {/* {colors.map((color) => (
-            <div
-              key={color.id}
-              onClick={() => {
-                colorSelected(color.name);
-              }}
-              className={`w-16 h-16 md:w-24 md:h-24 bg-[#${
-                color.hexCode
-              }] cursor-pointer rounded-md ${
-                color.name === selectedColor &&
-                "border-2 border-black shadow-lg"
-              } `}
-            ></div>
-          ))} */}
         </div>
       </div>
 
